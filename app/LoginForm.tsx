@@ -1,8 +1,14 @@
 "use client";
 
+import { signInWithPasskey } from "@teamhanko/passkeys-next-auth-provider/client";
 import { signIn } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function LoginForm() {
+	useEffect(() => {
+		signInWithPasskey.conditional({ tenantId: "261fda42-0d12-40ba-9b90-79ca06ce3c6f" });
+	}, []);
+
 	return (
 		<form
 			className="flex flex-col gap-4"
@@ -20,6 +26,7 @@ export default function LoginForm() {
 				type="text"
 				name="username"
 				placeholder="Username"
+				autoComplete="username webauthn"
 			/>
 			<input
 				className="px-4 py-2 rounded-full dark:bg-neutral-900 border-2 dark:border-neutral-800"
