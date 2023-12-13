@@ -4,7 +4,7 @@ First, create `.env.local` and add the following environment variables to it:
 
 ```
 PASSKEYS_API_KEY=<your secret api key>
-PASSKEYS_TENANT_ID=<your tenant id>
+NEXT_PUBLIC_TENANT_ID=<your tenant id>
 ```
 
 These values both come from the Passkey API. The tenant ID will be shown to you when you create a new tenant. The API key must remain secret (don't prefix with `NEXT_PUBLIC_`).
