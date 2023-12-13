@@ -5,7 +5,14 @@ import { signIn } from "next-auth/react";
 import { useEffect } from "react";
 
 export default function LoginForm() {
-	useEffect(() => signInWithPasskey.conditional({ tenantId: process.env.NEXT_PUBLIC_TENANT_ID! }), []);
+	useEffect(
+		() =>
+			signInWithPasskey.conditional({
+				tenantId: process.env.NEXT_PUBLIC_TENANT_ID!,
+				baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+			}),
+		[]
+	);
 
 	return (
 		<form

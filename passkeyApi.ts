@@ -9,6 +9,7 @@ if (!process.env.PASSKEYS_API_KEY || !process.env.NEXT_PUBLIC_TENANT_ID) {
 const passkeyApi = tenant({
 	apiKey: process.env.PASSKEYS_API_KEY!,
 	tenantId: process.env.NEXT_PUBLIC_TENANT_ID!,
+	baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 export default passkeyApi;
