@@ -5,6 +5,7 @@ import LoginForm from "./LoginForm";
 import PasskeyLoginButton from "./PasskeyLoginButton";
 import PasskeyRegisterButton from "./PasskeyRegisterButton";
 import { getServerSession } from "@/session";
+import Link from "next/link";
 
 export default function Home() {
 	const session = use(getServerSession());
@@ -14,14 +15,14 @@ export default function Home() {
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
 			<div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
 				<div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-					<a
+					<Link
 						className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
 						href="https://hanko.io"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						By <Image src="/hanko.svg" alt="Hanko Logo" width={20} height={20} priority /> Hanko
-					</a>
+					</Link>
 				</div>
 			</div>
 
@@ -57,17 +58,20 @@ export default function Home() {
 							{hasPasskeys ? (
 								<div>
 									Now try to log in with your passkey!{" "}
-									<a
+									<Link
 										className="text-center underline decoration-2 text-[#f23054]"
 										href="/api/auth/signout"
 									>
 										Log out
-									</a>
+									</Link>
 								</div>
 							) : (
-								<a className="text-center underline decoration-2 opacity-75" href="/api/auth/signout">
+								<Link
+									className="text-center underline decoration-2 opacity-75"
+									href="/api/auth/signout"
+								>
 									Log out
-								</a>
+								</Link>
 							)}
 						</>
 					) : (

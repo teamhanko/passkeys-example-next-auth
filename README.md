@@ -1,9 +1,9 @@
 ## Getting Started
 
-First, create `.env.local` and add the following environment variables to it:
+First, create `.env.local` and add the following environment variables to it (please make sure to include the quotes around the API key):
 
 ```
-PASSKEYS_API_KEY=<your secret api key>
+PASSKEYS_API_KEY_SECRET="<your secret api key>"
 NEXT_PUBLIC_TENANT_ID=<your tenant id>
 ```
 
