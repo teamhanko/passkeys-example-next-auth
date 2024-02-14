@@ -1,6 +1,5 @@
 "use client";
 
-import { signInWithPasskey } from "@teamhanko/passkeys-next-auth-provider/client";
 import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
@@ -22,12 +21,6 @@ export default function LoginForm() {
 				name="username"
 				placeholder="Username"
 				autoComplete="username webauthn"
-				onFocus={() => {
-					signInWithPasskey.conditional({
-						tenantId: process.env.NEXT_PUBLIC_TENANT_ID!,
-						baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-					});
-				}}
 			/>
 			<input
 				className="px-4 py-2 rounded-full dark:bg-neutral-900 border-2 dark:border-neutral-800"

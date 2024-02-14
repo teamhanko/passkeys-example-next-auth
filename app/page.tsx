@@ -1,15 +1,15 @@
 import { db } from "@/db";
+import { getServerSession } from "@/session";
 import Image from "next/image";
-import { use } from "react";
+import Link from "next/link";
+import { use, useCallback } from "react";
 import LoginForm from "./LoginForm";
 import PasskeyLoginButton from "./PasskeyLoginButton";
 import PasskeyRegisterButton from "./PasskeyRegisterButton";
-import { getServerSession } from "@/session";
-import Link from "next/link";
+import { LoggedOut } from "./LoggedOut";
 
 export default function Home() {
 	const session = use(getServerSession());
-	const { hasPasskeys } = db.users.find((u) => u.username === session?.user?.name) ?? {};
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -51,37 +51,7 @@ export default function Home() {
 				</div>
 
 				<div className="flex flex-col gap-8">
-					{session?.user?.name ? (
-						// Logged in
-						<>
-							<PasskeyRegisterButton username={session?.user.name} />
-							{hasPasskeys ? (
-								<div>
-									Now try to log in with your passkey!{" "}
-									<Link
-										className="text-center underline decoration-2 text-[#f23054]"
-										href="/api/auth/signout"
-									>
-										Log out
-									</Link>
-								</div>
-							) : (
-								<Link
-									className="text-center underline decoration-2 opacity-75"
-									href="/api/auth/signout"
-								>
-									Log out
-								</Link>
-							)}
-						</>
-					) : (
-						// Logged out, show login form and passkey-login button
-						<>
-							<LoginForm />
-							<hr className="border-neutral-600" />
-							<PasskeyLoginButton />
-						</>
-					)}
+					{session?.user?.name ? <LoggedIn username={session.user.name} /> : <LoggedOut />}
 				</div>
 			</div>
 
@@ -155,5 +125,28 @@ export default function Home() {
 				</a>
 			</div>
 		</main>
+	);
+}
+
+function LoggedIn(props: { username: string }) {
+	const { hasPasskeys } = db.users.find((u) => u.username === props.username) ?? {};
+
+	return (
+		<>
+			<PasskeyRegisterButton username={props.username} />
+
+			{hasPasskeys ? (
+				<div>
+					Now try to log in with your passkey!{" "}
+					<Link className="text-center underline decoration-2 text-[#f23054]" href="/api/auth/signout">
+						Log out
+					</Link>
+				</div>
+			) : (
+				<Link className="text-center underline decoration-2 opacity-75" href="/api/auth/signout">
+					Log out
+				</Link>
+			)}
+		</>
 	);
 }
